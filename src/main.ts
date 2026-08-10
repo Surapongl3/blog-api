@@ -8,7 +8,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-  app.enableCors();
+  // เปิด CORS ให้ยิงมาจาก Frontend ได้
+  app.enableCors({
+    origin: '*', // หรือใส่ URL ของ Frontend บน Render
+    credentials: true,
+  });
   const config = new DocumentBuilder()
     .setTitle('Blog Management API')
     .setDescription('API Documentation')
